@@ -50,6 +50,16 @@ input[type="checkbox"] {
   cursor: pointer;
 }
 
+/* Prevent logout button from taking full width */
+.logout-btn,
+button[onclick="logout()"] {
+  display: inline-block;
+  width: auto;
+  min-width: unset;
+  max-width: 200px;
+  margin: 0;
+}
+
 @media (max-width: 700px) {
   .form-container {
     padding: 1rem 0.2rem;
