@@ -289,21 +289,29 @@ img {
   }
   .hero-section header nav {
     position: absolute;
-    min-width: 8rem;
+    width: 90vw;
+    max-width: 350px;
+    min-width: unset;
     min-height: 14rem;
     background-color: rgba(0, 0, 0, 0.1);
     backdrop-filter: blur(45px);
     top: 10%;
     right: 2%;
-    transform: translateX(500px);
-    display: flex;
+    display: none; /* Hide by default */
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     border-radius: 12px;
     z-index: 99;
+    box-sizing: border-box;
+    transform: none;
+  }
+  .hero-section header nav.active {
+    display: flex; /* Show when active */
+    transform: none;
   }
   header nav ul {
-    min-width: 100%;
+    width: 100%;
     min-height: 12rem;
     display: flex;
     flex-direction: column;
