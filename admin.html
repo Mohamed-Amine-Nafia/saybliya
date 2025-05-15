@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ar">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="admin.css" />
+    <link
+      rel="shortcut icon"
+      href="images/appliance-repair.png"
+      type="image/x-icon"
+    />
+    <title>تسجيل دخول المسؤول</title>
+  </head>
+  <body>
+    <section class="hero-section">
+      <header>
+        <h1>SAYBLIYA.</h1>
+        <nav id="nav-bar">
+          <ul>
+            <li><a href="admin.html">Admin</a></li>
+            <li><a href="index.html">الرئيسية</a></li>
+            <li><a href="about.html">حولنا</a></li>
+            <li><a href="services.html">اختر خدمة</a></li>
+          </ul>
+        </nav>
+        <div class="menu-bar" id="menu-bar">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      </header>
+    </section>
+    <section class="form-section">
+      <form class="form-container" onsubmit="handleLogin(event)">
+        <h2>تسجيل الدخول</h2>
+        <label for="email">البريد الإلكتروني</label>
+        <input type="email" id="email" placeholder="أدخل بريدك" required />
+
+        <label for="password">كلمة المرور</label>
+        <input
+          type="password"
+          id="password"
+          placeholder="أدخل كلمة المرور"
+          required
+        />
+
+        <button type="submit">تسجيل الدخول</button>
+        <p id="error-message" style="color: red; text-align: center"></p>
+      </form>
+    </section>
+  </body>
+  <script src="admin.js"></script>
+</html>

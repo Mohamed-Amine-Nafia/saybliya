@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Zain:ital,wght@0,200;0,300;0,400;0,700;0,800;0,900;1,300;1,400&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Almarai:wght@300;400;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="shortcut icon"
+      href="images/appliance-repair.png"
+      type="image/x-icon"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <title>Saybliya</title>
+  </head>
+  <body>
+    <section class="hero-section">
+      <header>
+        <h1>SAYBLIYA.</h1>
+        <nav id="nav-bar">
+          <ul>
+            <li><a href="admin.html">Admin</a></li>
+            <li><a href="index.html">الرئيسية</a></li>
+            <li><a href="about.html">حولنا</a></li>
+            <li><a href="services.html">اختر خدمة</a></li>
+          </ul>
+        </nav>
+        <div class="menu-bar" id="menu-bar">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      </header>
+      <main class="services-container">
+        <h1>مالذي <span class="highlight"> تريد</span> إصلاحه؟</h1>
+        <div class="wrapper" id="wrapper">
+          <div data-service="غسالة الصحون">
+            <span>&#x2714;</span>
+            <img src="images/dishwasher.png" alt="dishwasher image" />
+            <h3>غسالة الصحون</h3>
+          </div>
+          <div data-service="الة التصبين">
+            <span>&#x2714;</span>
+            <img src="images/washer-machine.png" alt="wash image" />
+            <h3>الة التصبين</h3>
+          </div>
+          <div data-service="الة التجفيف">
+            <span>&#x2714;</span>
+            <img src="images/dryer.png" alt="tumble-dry image" />
+            <h3>الة التجفيف</h3>
+          </div>
+          <div data-service="الثلاجة">
+            <span>&#x2714;</span>
+            <img src="images/refrigerator.png" alt="fruit image" />
+            <h3>الثلاجة</h3>
+          </div>
+          <div data-service="مكيف الهواء">
+            <span>&#x2714;</span>
+            <img src="images/ac.png" alt="air-conditioner image" />
+            <h3>مكيف الهواء</h3>
+          </div>
+          <div data-service="الفرن">
+            <span>&#x2714;</span>
+            <img src="images/oven.png" alt="oven image" />
+            <h3>الفرن</h3>
+          </div>
+          <div data-service="التلفاز">
+            <span>&#x2714;</span>
+            <img src="images/tv.png" alt="tv image" />
+            <h3>التلفاز</h3>
+          </div>
+          <div data-service="سخان الماء">
+            <span>&#x2714;</span>
+            <img src="images/water-heater.png" alt="water heater image" />
+            <h3>سخان الماء</h3>
+          </div>
+          <div data-service="بارابول">
+            <span>&#x2714;</span>
+            <img src="images/reciever.png" alt="reciever image" />
+            <h3>بارابول</h3>
+          </div>
+          <div data-service="الكهرباء">
+            <span>&#x2714;</span>
+            <img src="images/electricity.png" alt="electricity repair image" />
+            <h3>الكهرباء</h3>
+          </div>
+        </div>
+        <a href="customer.html">تأكيد</a>
+      </main>
+    </section>
+    <script src="script.js" defer></script>
+    <script>
+      document.querySelectorAll("#wrapper > div").forEach((div) => {
+        div.addEventListener("click", function () {
+          document
+            .querySelectorAll("#wrapper > div")
+            .forEach((d) => d.classList.remove("checked"));
+          this.classList.add("checked");
+          // Save chosen service name from the h3 tag
+          const serviceName = this.querySelector("h3").innerText;
+          localStorage.setItem("chosenService", serviceName);
+        });
+      });
+
+      // When clicking the confirmation link, make sure a service is chosen
+      document
+        .querySelector('a[href="customer.html"]')
+        .addEventListener("click", function (e) {
+          if (!localStorage.getItem("chosenService")) {
+            alert("يرجى اختيار خدمة أولاً");
+            e.preventDefault();
+          }
+        });
+    </script>
+  </body>
+</html>

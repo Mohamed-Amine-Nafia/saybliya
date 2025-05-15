@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ar">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="shortcut icon"
+      href="images/appliance-repair.png"
+      type="image/x-icon"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="dashboard.css" />
+    <title>لوحة التحكم</title>
+  </head>
+  <body>
+    <section class="form-section">
+      <div class="form-container">
+        <h2>لوحة التحكم</h2>
+        <!-- Place this just below the <h2>لوحة التحكم</h2> -->
+        <div style="text-align: left; margin-bottom: 1rem">
+          <button
+            onclick="logout()"
+            style="
+              background-color: var(--highlight-color);
+              border: none;
+              padding: 0.5rem 1rem;
+              color: white;
+              border-radius: 6px;
+              cursor: pointer;
+            "
+          >
+            تسجيل الخروج
+          </button>
+        </div>
+
+        <table>
+          <thead>
+            <tr>
+              <th>الاسم الكامل</th>
+              <th>رقم الهاتف</th>
+              <th>العنوان</th>
+              <th>الخدمة</th>
+              <th>تم الإنجاز؟</th>
+              <th>حذف</th>
+            </tr>
+          </thead>
+          <tbody id="customer-table">
+            <!-- Data will be injected via JavaScript -->
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </body>
+  <script src="script.js"></script>
+</html>
