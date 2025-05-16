@@ -18,6 +18,7 @@ const CustomerSchema = new mongoose.Schema({
   phoneNumber: String,
   addressInfo: String,
   chosenService: String,
+  done: { type: Boolean, default: false }
 });
 const Customer = mongoose.model("Customer", CustomerSchema);
 
@@ -38,6 +39,13 @@ app.get("/api/customers", async (req, res) => {
 app.delete("/api/customers/:id", async (req, res) => {
   await Customer.findByIdAndDelete(req.params.id);
   res.sendStatus(204);
+});
+
+// Update mission done status
+app.patch("/api/customers/:id", async (req, res) => {
+  const { done } = req.body;
+  await Customer.findByIdAndUpdate(req.params.id, { done });
+  res.sendStatus(200);
 });
 
 app.listen(3001, () => console.log("Server running on http://localhost:3001"));
