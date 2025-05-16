@@ -65,15 +65,12 @@ if (form) {
 }
 
 // Get customers for dashboard
-async function renderTable() {
+function renderTable() {
   const table = document.getElementById("customer-table");
   if (!table) return;
   table.innerHTML = "";
 
-  const res = await fetch(
-    "https://saybliya-production.up.railway.app/api/customers"
-  );
-  const customers = await res.json();
+  let customers = JSON.parse(localStorage.getItem("customers") || "[]");
   customers.forEach((customer, index) => {
     const row = document.createElement("tr");
     row.innerHTML = `
@@ -82,12 +79,12 @@ async function renderTable() {
       <td data-label="العنوان">${customer.addressInfo}</td>
       <td data-label="الخدمة">${customer.chosenService || ""}</td>
       <td data-label="تم الإنجاز؟">
-        <input type="checkbox" class="done-checkbox" data-id="${
-          customer._id
-        }" ${customer.done ? "checked" : ""}>
+        <input type="checkbox" class="done-checkbox" data-index="${index}" ${
+      customer.done ? "checked" : ""
+    }>
       </td>
       <td data-label="حذف">
-        <button class="delete-btn" data-id="${customer._id}">حذف</button>
+        <button class="delete-btn" data-index="${index}">حذف</button>
       </td>
     `;
     table.appendChild(row);
@@ -95,30 +92,21 @@ async function renderTable() {
 
   // Delete logic
   table.querySelectorAll(".delete-btn").forEach((btn) => {
-    btn.addEventListener("click", async function () {
-      const id = this.getAttribute("data-id");
-      await fetch(
-        `https://saybliya-production.up.railway.app/api/customers/${id}`,
-        { method: "DELETE" }
-      );
+    btn.addEventListener("click", function () {
+      const index = this.getAttribute("data-index");
+      customers.splice(index, 1);
+      localStorage.setItem("customers", JSON.stringify(customers));
       renderTable();
     });
   });
 
   // Mission done logic
   table.querySelectorAll(".done-checkbox").forEach((checkbox) => {
-    checkbox.addEventListener("change", async function () {
-      const id = this.getAttribute("data-id");
-      const done = this.checked;
-      await fetch(
-        `https://saybliya-production.up.railway.app/api/customers/${id}`,
-        {
-          method: "PATCH",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ done }),
-        }
-      );
-      // Optionally re-render table to reflect changes
+    checkbox.addEventListener("change", function () {
+      const index = this.getAttribute("data-index");
+      customers[index].done = this.checked;
+      localStorage.setItem("customers", JSON.stringify(customers));
+      // Optionally re-render table
       // renderTable();
     });
   });
