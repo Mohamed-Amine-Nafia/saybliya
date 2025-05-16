@@ -32,17 +32,23 @@ if (wrapper) {
 /* THIS THE CUSTOMER INFORAMTIONS PRECESSED */
 
 // Add customer
-async function saveInfo() {
+function saveInfo() {
   const fullName = document.getElementById("fullName").value;
   const phoneNumber = document.getElementById("phone").value;
   const addressInfo = document.getElementById("address").value;
   const chosenService = localStorage.getItem("chosenService") || "";
 
-  await fetch("https://saybliya-production.up.railway.app/api/customers", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ fullName, phoneNumber, addressInfo, chosenService }),
-  });
+  const customer = {
+    fullName,
+    phoneNumber,
+    addressInfo,
+    chosenService,
+    done: false,
+  };
+
+  let customers = JSON.parse(localStorage.getItem("customers") || "[]");
+  customers.push(customer);
+  localStorage.setItem("customers", JSON.stringify(customers));
 
   showThankYou();
   document.getElementById("customer-form").reset();
