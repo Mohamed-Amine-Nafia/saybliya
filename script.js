@@ -31,17 +31,20 @@ if (wrapper) {
 
 /* THIS THE CUSTOMER INFORAMTIONS PRECESSED */
 
-function saveInfo() {
+// Add customer
+async function saveInfo() {
   const fullName = document.getElementById("fullName").value;
   const phoneNumber = document.getElementById("phone").value;
   const addressInfo = document.getElementById("address").value;
   const chosenService = localStorage.getItem("chosenService") || "";
 
-  const customers = JSON.parse(localStorage.getItem("customers") || "[]");
-  customers.push({ fullName, phoneNumber, addressInfo, chosenService });
-  localStorage.setItem("customers", JSON.stringify(customers));
+  await fetch('http://localhost:3001/api/customers', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ fullName, phoneNumber, addressInfo, chosenService })
+  });
 
-  showThankYou(); // Show custom popup
+  showThankYou();
   document.getElementById("customer-form").reset();
   localStorage.removeItem("chosenService");
 }
@@ -55,12 +58,14 @@ if (form) {
   });
 }
 
-function renderTable() {
+// Get customers for dashboard
+async function renderTable() {
   const table = document.getElementById("customer-table");
   if (!table) return;
-  table.innerHTML = ""; // Clear previous rows
+  table.innerHTML = "";
 
-  const customers = JSON.parse(localStorage.getItem("customers") || "[]");
+  const res = await fetch('http://localhost:3001/api/customers');
+  const customers = await res.json();
   customers.forEach((customer, index) => {
     const row = document.createElement("tr");
     row.innerHTML = `
@@ -68,34 +73,14 @@ function renderTable() {
       <td data-label="رقم الهاتف">${customer.phoneNumber}</td>
       <td data-label="العنوان">${customer.addressInfo}</td>
       <td data-label="الخدمة">${customer.chosenService || ""}</td>
-      <td data-label="تم الإنجاز؟"><input type="checkbox"></td>
       <td data-label="حذف">
-        <button class="delete-btn" data-index="${index}" style="
-          background-color: #e74c3c;
-          color: #fff;
-          border: none;
-          border-radius: 4px;
-          padding: 6px 14px;
-          cursor: pointer;
-          font-size: 1rem;
-          transition: background 0.2s;
-        ">حذف</button>
+        <button class="delete-btn" data-id="${customer._id}">حذف</button>
       </td>
     `;
     table.appendChild(row);
   });
 
-  // Add event listeners for delete buttons
-  const deleteButtons = table.querySelectorAll(".delete-btn");
-  deleteButtons.forEach((btn) => {
-    btn.addEventListener("click", function () {
-      const idx = parseInt(this.getAttribute("data-index"));
-      const customers = JSON.parse(localStorage.getItem("customers") || "[]");
-      customers.splice(idx, 1);
-      localStorage.setItem("customers", JSON.stringify(customers));
-      renderTable();
-    });
-  });
+  // Add delete logic...
 }
 
 function logout() {
