@@ -18,7 +18,7 @@ const CustomerSchema = new mongoose.Schema({
   phoneNumber: String,
   addressInfo: String,
   chosenService: String,
-  done: { type: Boolean, default: false }
+  done: { type: Boolean, default: false },
 });
 const Customer = mongoose.model("Customer", CustomerSchema);
 
