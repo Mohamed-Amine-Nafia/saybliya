@@ -62,4 +62,19 @@
     </section>
   </body>
   <script src="script.js"></script>
+  <script>
+    localStorage.setItem(
+      "customers",
+      JSON.stringify([
+        {
+          fullName: "اختبار",
+          phoneNumber: "0123456789",
+          addressInfo: "عنوان",
+          chosenService: "خدمة",
+          done: false,
+        },
+      ])
+    );
+    location.reload();
+  </script>
 </html>
